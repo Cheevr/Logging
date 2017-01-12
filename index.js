@@ -37,8 +37,7 @@ const transportDefaults = {
  */
 class Logger {
     constructor() {
-        config.addDefaultConfig(path.join(__dirname, 'config/logging.js'));
-        config.addDefaultConfig(path.join(__dirname, 'config/paths.js'));
+        config.addDefaultConfig(path.join(__dirname, 'config'));
         this._loggers = [];
         this._levelColors = {};
         this.dir = config.paths.logs || process.env.NODE_LOG_DIR;
@@ -139,7 +138,7 @@ class Logger {
                     this.debug = winston.debug.bind(winston);
                     this.trace = this.close = () => {};
                 }
-                clientConfig.log = LogToWinston;
+                clientConfig.log == undefined && (clientConfig.log = LogToWinston);
             }
         }
     }
