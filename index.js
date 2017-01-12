@@ -92,6 +92,7 @@ class Logger {
                 colors: config.colors
             });
         }
+        this._setElasticsearchHandler();
     }
 
     /**
@@ -125,6 +126,22 @@ class Logger {
             default:
                 throw new Error('Unknown transport configured: ' + type);
             }
+    }
+
+    _setElasticsearchHandler() {
+        if (module.exports.elasticsearch) {
+            module.exports.elasticsearch.bindToClient = clientConfig => {
+                function LogToWinston() {
+                    let winston = module.exports.elasticsearch;
+                    this.error = winston.error.bind(winston);
+                    this.warning = winston.warn.bind(winston);
+                    this.info = winston.info.bind(winston);
+                    this.debug = winston.debug.bind(winston);
+                    this.trace = this.close = () => {};
+                }
+                clientConfig.log = LogToWinston;
+            }
+        }
     }
 
     /**
