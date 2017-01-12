@@ -1,6 +1,6 @@
 {
   "name": "logging",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple logging wrapper around winstin",
   "private": true,
   "main": "index.js",
@@ -26,8 +26,7 @@
     "chai": "^3",
     "express": "^4",
     "istanbul": "^0.4",
-    "mocha": "^3",
-    "supertest": "^2"
+    "mocha": "^3"
   },
   "dependencies": {
     "config": "https://github.com/Cheevr/Config.git",

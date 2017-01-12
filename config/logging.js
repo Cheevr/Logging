@@ -1,4 +1,7 @@
 module.exports = {
+    loggers: {
+        requests: 'info',
+    },
     levels: {
         trace: 4,
         verbose: 4,
