@@ -21,6 +21,7 @@ const transportDefaults = {
 
 /**
  * @typedef {object} Config
+ * @property {boolean} enabled                  Whether the logging system should be enabled or not
  * @property {object<string,LogConfig>} loggers Map of logger names with log config
  * @property {object<string,string>} colors     Map with levels as keys and colors as values that will define the console output
  * @property {object<string,number>} levels     Map with level names and integer priorities ranging from 0 (high) to 4 (low)
@@ -53,6 +54,9 @@ class Logger {
             delete this[logger];
         }
         this._loggers = [];
+        if (!config.enabled) {
+            return;
+        }
 
         // Set up a map with colorized levels for quick lookup during console log
         for (let level in config.colors) {
