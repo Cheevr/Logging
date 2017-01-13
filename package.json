@@ -1,5 +1,5 @@
 {
-  "name": "logging",
+  "name": "cheevr-logging",
   "version": "1.0.3",
   "description": "A simple logging wrapper around winstin",
   "private": true,
@@ -29,7 +29,7 @@
     "mocha": "^3"
   },
   "dependencies": {
-    "config": "https://github.com/Cheevr/Config.git",
+    "cheevr-config": "https://github.com/Cheevr/Config.git",
     "lodash": "^4.17.4",
     "winston": "^2.3.0"
   }
