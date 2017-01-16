@@ -1,4 +1,5 @@
 module.exports = {
+    enabled: true,
     loggers: {
         requests: 'info',
     },
