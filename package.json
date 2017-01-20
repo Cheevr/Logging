@@ -1,7 +1,7 @@
 {
   "name": "cheevr-logging",
   "version": "1.0.4",
-  "description": "A simple logging wrapper around winstin",
+  "description": "A simple logging wrapper around winston",
   "private": true,
   "main": "index.js",
   "repository": {
@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "cheevr-config": "https://github.com/Cheevr/Config.git",
-    "lodash": "^4.17.4",
-    "winston": "^2.3.0"
+    "lodash": "^4",
+    "winston": "^2"
   }
 }
