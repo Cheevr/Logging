@@ -3,7 +3,7 @@ const fs = require('fs');
 const expect = require('chai').expect;
 const Logger = require('..');
 
-const cwd = require.main.filename;
+const cwd = process.cwd();
 
 function cleanUp(dir) {
     dir = path.join(cwd, dir);

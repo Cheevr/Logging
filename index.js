@@ -6,7 +6,7 @@ const path = require('path');
 const winston = require('winston');
 
 
-const cwd = path.dirname(require.main.filename);
+const cwd = process.cwd();
 colors.enabled = true;
 const transportDefaults = {
     json: false,
