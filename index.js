@@ -39,8 +39,8 @@ const transportDefaults = {
 class Logger {
     constructor() {
         config.addDefaultConfig(path.join(__dirname, 'config'));
-        this.__proto__._loggers = [];
-        this.__proto__._levelColors = {};
+        Object.getPrototypeOf(this)._loggers = [];
+        Object.getPrototypeOf(this)._levelColors = {};
         this.dir = config.paths.logs || process.env.NODE_LOG_DIR;
         this.configure(config.logging);
     }
@@ -53,7 +53,7 @@ class Logger {
         for (let logger of this._loggers) {
             delete this[logger];
         }
-        this.__proto__._loggers = [];
+        Object.getPrototypeOf(this)._loggers = [];
         if (!config.enabled) {
             return;
         }
@@ -102,7 +102,7 @@ class Logger {
      * @param {string} dir  Either an absolute or relative to the program directory path.
      */
     set dir(dir) {
-        this.__proto__._dir = path.isAbsolute(dir) ? dir :  path.join(cwd, dir);
+        Object.getPrototypeOf(this)._dir = path.isAbsolute(dir) ? dir :  path.join(cwd, dir);
         fs.existsSync(this._dir) || fs.mkdirSync(this._dir);
     }
 
@@ -165,11 +165,11 @@ class Logger {
                 for (let prop in this._backup) {
                     this[prop] = this._backup[prop];
                 }
-                delete this.__proto__._backup;
+                delete Object.getPrototypeOf(this)._backup;
             }
         } else {
             if (!this._backup) {
-                this.__proto__._backup = {};
+                Object.getPrototypeOf(this)._backup = {};
                 for (let prop in this) {
                     if (this.hasOwnProperty(prop)) {
                         let sink = {};
@@ -177,7 +177,7 @@ class Logger {
                             sink[level] = () => {
                             };
                         }
-                        this.__proto__._backup[prop] = this[prop];
+                        Object.getPrototypeOf(this)._backup[prop] = this[prop];
                         this[prop] = sink;
                     }
                 }
