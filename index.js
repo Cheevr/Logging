@@ -39,8 +39,8 @@ const transportDefaults = {
 class Logger {
     constructor() {
         config.addDefaultConfig(path.join(__dirname, 'config'));
-        this._loggers = [];
-        this._levelColors = {};
+        this.__proto__._loggers = [];
+        this.__proto__._levelColors = {};
         this.dir = config.paths.logs || process.env.NODE_LOG_DIR;
         this.configure(config.logging);
     }
@@ -53,7 +53,7 @@ class Logger {
         for (let logger of this._loggers) {
             delete this[logger];
         }
-        this._loggers = [];
+        this.__proto__._loggers = [];
         if (!config.enabled) {
             return;
         }
@@ -102,7 +102,7 @@ class Logger {
      * @param {string} dir  Either an absolute or relative to the program directory path.
      */
     set dir(dir) {
-        this._dir = path.isAbsolute(dir) ? dir :  path.join(cwd, dir);
+        this.__proto__._dir = path.isAbsolute(dir) ? dir :  path.join(cwd, dir);
         fs.existsSync(this._dir) || fs.mkdirSync(this._dir);
     }
 
@@ -151,6 +151,38 @@ class Logger {
             );
         });
         next();
+    }
+
+    /**
+     * Allows to enable or disable the logger temporarily. Note that when disabling the logger that it is not possible
+     * to change the logging configuration. This means that this function should usually only be called once
+     * configuration has been completed
+     * @param {boolean} [enabled=true] Set the flag whether logging is enabled or not
+     */
+    enabled(enabled = true) {
+        if (enabled) {
+            if (this._backup) {
+                for (let prop in this._backup) {
+                    this[prop] = this._backup[prop];
+                }
+                delete this.__proto__._backup;
+            }
+        } else {
+            if (!this._backup) {
+                this.__proto__._backup = {};
+                for (let prop in this) {
+                    if (this.hasOwnProperty(prop)) {
+                        let sink = {};
+                        for (let level in this[prop].levels) {
+                            sink[level] = () => {
+                            };
+                        }
+                        this.__proto__._backup[prop] = this[prop];
+                        this[prop] = sink;
+                    }
+                }
+            }
+        }
     }
 }
 
