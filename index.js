@@ -43,6 +43,7 @@ class Logger {
         Object.getPrototypeOf(this)._levelColors = {};
         this.dir = config.paths.logs || process.env.NODE_LOG_DIR;
         this.configure(config.logging);
+        config.on('change', () => this.configure(config.logging));
     }
 
     /**
