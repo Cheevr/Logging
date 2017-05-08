@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const colors = require('colors');
-const config = require('cheevr-config');
+const config = require('@cheevr/config');
 const fs = require('fs');
 const path = require('path');
 const winston = require('winston');
