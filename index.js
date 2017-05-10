@@ -6,6 +6,8 @@ const path = require('path');
 const winston = require('winston');
 
 
+// TODO File logging does not default to rollingFile logging, and instead just creates one giant file
+
 const cwd = process.cwd();
 colors.enabled = true;
 const transportDefaults = {
@@ -141,7 +143,7 @@ class Logger {
             module.exports.requests.info(
                 '%s %s id:%s in:%s out:%s time:%s %s (%s/%s)',
                 res.statusCode,
-                req.method,
+                _.padEnd(req.method, 4),
                 _.padEnd(req.id, 10),
                 _.padEnd(req.socket.bytesRead, 5),
                 _.padEnd(req.socket.bytesWritten, 5),

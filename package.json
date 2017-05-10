@@ -1,6 +1,6 @@
 {
   "name": "@cheevr/logging",
-  "version": "1.1.1",
+  "version": "1.1.3",
   "description": "A simple logging wrapper around winstin",
   "main": "index.js",
   "repository": {
