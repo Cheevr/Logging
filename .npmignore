@@ -1,0 +1,5 @@
+test/
+coverage/
+logs/
+.nyc_coverage
+.gitignore
