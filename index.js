@@ -4,6 +4,7 @@ const config = require('@cheevr/config');
 const fs = require('fs');
 const path = require('path');
 const winston = require('winston');
+const RollingFileTransport = require('rolling-file-transport').RollingFile;
 
 
 // TODO File logging does not default to rollingFile logging, and instead just creates one giant file
@@ -79,7 +80,7 @@ class Logger {
                 logConfig = {
                     name,
                     level: logConfig,
-                    transports: ['console', 'file']
+                    transports: ['console', 'rollingFile']
                 }
             }
 
@@ -127,6 +128,13 @@ class Logger {
                     maxSize: logConfig.maxSize,
                     tailable: logConfig.tailable,
                     zippedArchive: logConfig.zippedArchive
+                });
+            case 'rollingFile':
+                return new RollingFileTransport({
+                    filename: path.join(this._dir, logConfig.name + '.log'),
+                    timestamp: logConfig.timestamp,
+                    json: logConfig.json,
+                    maxFiles: logConfig.maxFiles
                 });
             default:
                 throw new Error('Unknown transport configured: ' + type);

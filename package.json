@@ -1,7 +1,7 @@
 {
   "name": "@cheevr/logging",
-  "version": "1.1.4",
-  "description": "A simple logging wrapper around winstin",
+  "version": "1.1.5",
+  "description": "A simple logging wrapper around winston",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
   "dependencies": {
     "@cheevr/config": "^1.1.2",
     "lodash": "^4.17.4",
+    "rolling-file-transport": "^1.1.0",
     "winston": "^2.3.1"
   }
 }
