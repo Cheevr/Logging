@@ -7,9 +7,7 @@ const winston = require('winston');
 const RollingFileTransport = require('rolling-file-transport').RollingFile;
 
 
-// TODO File logging does not default to rollingFile logging, and instead just creates one giant file
-
-const cwd = process.cwd();
+const cwd = process.env.NODE_CWD || process.cwd();
 colors.enabled = true;
 const transportDefaults = {
     json: false,
@@ -185,8 +183,7 @@ class Logger {
                     if (this.hasOwnProperty(prop)) {
                         let sink = {};
                         for (let level in this[prop].levels) {
-                            sink[level] = () => {
-                            };
+                            sink[level] = () => {};
                         }
                         Object.getPrototypeOf(this)._backup[prop] = this[prop];
                         this[prop] = sink;
